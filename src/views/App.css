@@ -1,0 +1,44 @@
+#App-about {
+	margin: 65px auto 0;
+	color: #a6a6a6;
+	font-size: 12px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+	text-align: center;
+}
+
+#App-header {
+	text-align: center;
+	background-color: #dbfaff;
+	margin: 10px;
+	border-style: solid;
+	border-bottom-color: black;
+	word-spacing: 150px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+#Main-home {
+	text-align: center;
+	margin: 10px;
+}
+
+#Home-title {
+	font-size: 36px;
+}
+
+#Main-about {
+	text-align: center;
+	margin: 50px;
+	font-size: 12px;
+}
+
+#button-header {
+	text-indent: center;
+	padding: 10px;
+	width: 120px;
+}
+
+#text-header {
+	min-width: 120px;
+	resize:none;
+}
