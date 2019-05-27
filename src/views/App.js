@@ -1,4 +1,11 @@
+/**
+ * App.js by zhongz132@gmail.com
+ *
+ * Holds views for all screens without child components (everything but gameScreen).
+ */
+
 import React from "react";
+import gameScreen from "./gameScreen.js";
 
 function App(props) {
 	return (
@@ -13,27 +20,26 @@ function Header(props) {
 	if (props.screenState.screen === "Game") {
 		return (
 			// TODO: If screen is game, change location to location name
+			// <button id="button-header">{props.gameState.locData.get(props.gameState.curLoc).name}</button> <t />
 			<div id="App-header">
 				<button id="button-header" onClick={() => props.onSwitchScreen("Home")}>
 					Home
 				</button>{" "}
 				<t />
-				<button id="button-header">LOCATION</button> <t />
+				<button id="button-header">{props.gameState.LocData[props.gameState.curLoc].name}</button> <t />
 				<button id="button-header" onClick={() => props.onSwitchScreen("Help")}>
 					Help
 				</button>
 			</div>
 		);
 	} else if (props.screenState.screen === "Help") {
-		let reportText = "Bugs: https://github.com/zhongz132/Rifeel-LOaF/issues \n";
-		reportText += "Other: email zhongz132@gmail.com";
 		return (
 			<div id="App-header">
 				<button id="button-header" onClick={() => props.onSwitchScreen("Home")}>
 					Home
 				</button>{" "}
 				<t />
-				<button id="button-header" onClick={() => alert(reportText)}>
+				<button id="button-header" onClick={() => props.onSwitchScreen("Report")}>
 					Report
 				</button>{" "}
 				<t />
@@ -61,34 +67,23 @@ function Header(props) {
 	}
 }
 
-function aboutScreen(props) {
-	return (
-		<div id="Main-about">
-			A javascript game written with the help of Flux and React.
-			<br />
-			Currently, save states are stored in the browser local storage, so clearing it will erase game data.
-			<br />
-			Written by Zhonghao Zhou
-			<br />
-			Contact: zhongz132@gmail.com
-			<br />
-			Code location (SPOILS GAME): https://github.com/zhongz132/Rifeel-LOaF
-		</div>
-	);
-}
-
-function loadScreen(props) {
-	//TODO: THIS!
-	return (
-		<div id="Main-home">
-			<p>Hello!</p>
-			<p>Feature working</p>
-		</div>
-	);
-}
-
-function gameScreen(props) {
-	return <div id="Game-main" />;
+function Main(props) {
+	switch (props.screenState.screen) {
+		case "Home":
+			return homeScreen({ ...props });
+		case "About":
+			return aboutScreen({ ...props });
+		case "Load":
+			return loadScreen({ ...props });
+		case "Help":
+			return helpScreen({ ...props });
+		case "Report":
+			return reportScreen({ ...props }, "");
+		case "Game":
+			return gameScreen({ ...props });
+		default:
+			return reportScreen({ ...props }, "Invalid screen: " + props.screenState.screen + ". Please report!");
+	}
 }
 
 function homeScreen(props) {
@@ -126,17 +121,60 @@ function homeScreen(props) {
 	);
 }
 
-function Main(props) {
-	if (props.screenState.screen === "Home") {
-		return homeScreen({ ...props });
-	} else if (props.screenState.screen === "Help") {
-		return <div id="App-main">Help Screen!</div>;
-	} else if (props.screenState.screen === "About") {
-		return aboutScreen(props);
-	} else if (props.screenState.screen === "Load") {
-		return loadScreen({ ...props });
-	} else if (props.screenState.screen === "Game") {
-		return gameScreen({ ...props });
+function aboutScreen(props) {
+	return (
+		<div id="Main-about">
+			A javascript game written with the help of Flux and React.
+			<br />
+			Currently, save states are stored in the browser local storage, so clearing it will erase game data.
+			<br />
+			Written by Zhonghao Zhou
+			<br />
+			Contact: zhongz132@gmail.com
+			<br />
+			Code location (SPOILS GAME): https://github.com/zhongz132/Rifeel-LOaF
+		</div>
+	);
+}
+
+function loadScreen(props) {
+	//TODO: THIS!
+	return (
+		<div id="Main-home">
+			<p>Load Screen</p>
+			<p>Feature working</p>
+		</div>
+	);
+}
+
+function helpScreen(props) {
+	//TODO: THIS!
+	return (
+		<div id="Main-home">
+			<p>Help Screen</p>
+			<p>Feature working</p>
+		</div>
+	);
+}
+
+function reportScreen(props, text) {
+	let bugsText = "Bugs: https://github.com/zhongz132/Rifeel-LOaF/issues";
+	let otherText = 'Other: Email zhongz132@gmail.com with subject: "Rifeel-LOaF: {issue}"';
+	if (text.length > 0) {
+		return (
+			<div id="Main-home">
+				<p> Bug: {text} </p>
+				<p> {bugsText} </p>
+				<p> {otherText} </p>
+			</div>
+		);
+	} else {
+		return (
+			<div id="Main-home">
+				<p> {bugsText} </p>
+				<p> {otherText} </p>
+			</div>
+		);
 	}
 }
 

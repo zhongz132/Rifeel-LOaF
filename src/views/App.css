@@ -12,7 +12,7 @@
 	margin: 10px;
 	border-style: solid;
 	border-bottom-color: black;
-	word-spacing: 150px;
+	word-spacing: 100px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
@@ -34,11 +34,100 @@
 
 #button-header {
 	text-indent: center;
+	align-self: center;
 	padding: 10px;
-	width: 120px;
+	width: 150px;
 }
 
 #text-header {
 	min-width: 120px;
-	resize:none;
+	resize: none;
+}
+
+button.game-button {
+	text-indent: left;
+	color: blue;
+	display: inline-block;
+	width: inherit;
+	padding: 4px;
+}
+
+#Game-screen {
+	padding: 10px;
+	align-self: center;
+}
+
+#Game-time {
+	float: left;
+	width: 100%;
+}
+
+#Game-main {
+	float: left;
+	height: 300px;
+	background-color: #C7FCDF;
+	width: 70%;
+	box-sizing: border-box;
+	box-shadow: inset 0px 0px 0px 3px black;
+}
+
+#Game-nav {
+	float: left;
+	width: 25%;
+	padding: 8px;
+	height: 300px;
+	box-sizing: border-box;
+}
+
+#Game-characters {
+	float: left;
+	width: 25%;
+	padding: 8px;
+	height: 300px;
+	box-sizing: border-box;
+}
+
+#Game-interactions {
+	float: left;
+	width: 40%;
+	height: 300px;
+	padding: 8px;
+	box-sizing: border-box;
+}
+
+#Skill-title{
+	float: left;
+	width: 100%;
+}
+
+#Skill-names {
+	float: left;
+	width: 80%;
+}
+
+#Skill-press {
+	float: left;
+	width: 18%;
+}
+
+#Game-player {
+	float: right;
+	width: 29%;
+	height: 400px;
+	padding: 1%;
+	box-sizing: border-box;
+	box-shadow: inset 0px 0px 0px 3px black;
+}
+
+#Game-dialog {
+	float: left;
+	width: 70%;
+	height: 100px;
+	padding: 8px;
+	box-sizing: border-box;
+	box-shadow: inset 0px 0px 0px 3px black;
+}
+
+#underline {
+	text-decoration: underline;
 }

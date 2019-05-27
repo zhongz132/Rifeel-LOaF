@@ -1,3 +1,9 @@
+/**
+ * ScreenStateStore.js by zhongz132@gmail.com
+ * 
+ * Store for the screen state.
+ */
+
 import {ReduceStore} from 'flux/utils';
 import {ScreenActionTypes} from './AppActionTypes';
 import AppDispatcher from './AppDispatcher.js';
