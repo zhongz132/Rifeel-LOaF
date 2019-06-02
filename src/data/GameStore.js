@@ -20,6 +20,7 @@ import StartSpar from "./Utils/StartSpar.js";
 import GetSkillInfo from "./Utils/GetSkillInfo.js";
 import ProcessSkill from "./Utils/ProcessSkill.js";
 import ProcessSBEnd from "./Utils/ProcessSBEnd.js";
+import GameTest from "./Game/Game.js";
 
 class GameStore extends ReduceStore {
 	constructor() {
@@ -107,8 +108,10 @@ class GameStore extends ReduceStore {
 				return UpdateChar(state, state.dialCharId);
 
 			case GameActionTypes.CHAR_INTERACT_LEARN:
+				let newSkill = [...state.player.skill];
+				newSkill.push(action.skillId);
 				state = state.merge({
-					player: state.player.set("skill", [...state.player.skill, action.skillId]),
+					player: state.player.set("skill", newSkill),
 					dialCharText: "",
 					dialSysText: "Congrats! You have learned " + action.skillId,
 					time: state.time + action.time
@@ -155,7 +158,9 @@ class GameStore extends ReduceStore {
 
 			case GameActionTypes.CHAR_INTERACT_END_SB:
 				state = ProcessSBEnd(state);
-				return UpdateChar(state, state.curChar);
+				console.log(state.curLoc);
+				state = UpdateChar(state, state.curChar);
+				return UpdateLoc(state, state.curLoc);
 
 			case GameActionTypes.SB_PROCESS_MOVE:
 				return ProcessSkill(state, action.skillId);

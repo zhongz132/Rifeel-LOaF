@@ -28,7 +28,7 @@ function gameSparBattle(props) {
 	function showOppInfo() {
 		return (
 			<div id="Game-characters">
-				Opp Info
+				{props.gameState.CharData[props.gameState.curChar].name}
 				<br />
 				HP: {props.gameState.SBState.oppHp}
 				<br />

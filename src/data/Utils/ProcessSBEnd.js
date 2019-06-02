@@ -32,12 +32,19 @@ function ProcessSBEnd(state) {
 			case "Escape-player":
 				return state.merge({ curLoc: state.prevLoc, dialSysText: "Coward...." });
 			case "Escape-opp":
-				state = ProcessRewards(state, state.CharData[state.curChar].interact.spar.reward);
-				return state.merge({
-					curLoc: state.prevLoc,
-					dialSysText: "Your opponent ran away! You won.",
-					doneSpar: [...state.doneSpar, state.curChar]
-				});
+				if (state.doneSpar.includes(state.curChar)) {
+					return state.merge({
+						curLoc: state.prevLoc,
+						dialSysText: state.CharData[state.curChar].name + " ran away."
+					});
+				} else {
+					state = ProcessRewards(state, state.CharData[state.curChar].interact.spar.reward);
+					return state.merge({
+						curLoc: state.prevLoc,
+						dialSysText: "Your opponent ran away! You won.",
+						doneSpar: [...state.doneSpar, state.curChar]
+					});
+				}
 			default:
 				console.log("ERROR: Invalid end result in spar:", endResult);
 				return state.merge({ curLoc: state.prevLoc });

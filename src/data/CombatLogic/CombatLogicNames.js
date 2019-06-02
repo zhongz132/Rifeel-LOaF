@@ -6,6 +6,9 @@
 
 const CombatLogicNames = {
 	BASIC: "BASIC",
+	INTERMEDIATE: "INTERMEDIATE",
+	ADVANCED: "ADVANCED",
+	PREDICT: "PREDICT",
 
 	WARRIOR: "WARRIOR",
 	BERSERKER: "BERSERKER",
@@ -14,7 +17,7 @@ const CombatLogicNames = {
 	KNIGHT: "KNIGHT",
 
 	ROGUE: "ROGUE",
-	ASSASSAIN: "ASSASSAIN"
+	ASSASSAIN: "ASSASSAIN",
 };
 
 export default CombatLogicNames;

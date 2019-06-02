@@ -48,8 +48,8 @@ LocLianData[LocId.genId(["World", "Lian", "Hall"])] = new Location({
 	about: "The town hall of Lian.",
 	characters: [
 		"World_Lian_Hall_Messenger",
-		"World_Lian_Hall_Sheriff",
 		"World_Lian_Hall_Guard",
+		"World_Lian_Hall_Sheriff",
 		"World_Lian_Hall_Chief"
 	]
 });

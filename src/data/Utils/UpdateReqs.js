@@ -178,6 +178,24 @@ export function UpdateLoc(state, location) {
 		}
 	}
 
+	// Parent
+	if (location === "") {
+	} else if (location === null) {
+		console.log("Error: parent is null in UpdateReqs/updateReqs.");
+	} else {
+		// parent is not valid!
+		if (!state.validLoc.includes(location)) {
+			let locationReqs = state.LocData[location].validReq;
+			// It is valid. Add to validLoc
+			if (__checkReqs(state, locationReqs)) {
+				// add to state
+				state = state.merge({
+					validLoc: [...state.validLoc, location]
+				});
+			}
+		}
+	}
+
 	// Children
 	if (locChildren === null) {
 		console.log("Error: children are null in UpdateReqs/updateReqs");

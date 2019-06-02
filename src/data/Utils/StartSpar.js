@@ -27,8 +27,10 @@ function parseSkill(skill1) {
 	return newSkillList;
 }
 
-function passiveBonus(state, passives) {
+function passiveBonus(state, passives1) {
 	let passiveEffects = { cst: 0.0, atk: 0.0, def: 0.0, agi: 0.0, int: 0.0, energy: 0, status: [], named: [] };
+	let passives = [...passives1]
+	console.log(passives);
 	for (var passive in passives) {
 		let bonus = state.SkillData[passives[passive]].bonus;
 		for (var bonusKey in bonus) {

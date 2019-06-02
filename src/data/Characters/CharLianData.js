@@ -44,8 +44,8 @@ CharLianData[_home + "Dad"] = new Character({
 	about: "Used to be a warrior. Jolly and kind, but his mood seems to sour in the 10th month.",
 	cst: 350,
 	atk: 425,
-	def: 200,
-	agi: 350,
+	def: 250,
+	agi: 325,
 	int: 250,
 	inf: 550,
 	passive: [SkillNames.PAS_BEAR, SkillNames.PAS_WARRIOR, SkillNames.PAS_ROGUE, SkillNames.PAS_TACTICIAN],
@@ -61,13 +61,13 @@ CharLianData[_home + "Dad"] = new Character({
 		{ question: "Can you tell me a story?", answer: "I " }
 	],
 	interact: {
-		spar: { cost: 4, reward: { inf: 5, atk: 10, def: 10, agi: 10 } },
+		spar: { cost: 4, reward: { inf: 15, cst: 10, atk: 20, def: 5, agi: 10 } },
 		quest: {
 			about:
-				"Years ago I wounded a beast called Yeoron. He eventually healed,\nand when I was fighting elsewhere, slew my brothers. I was injured trying to avenge them.\nKill Yeoron for me. He should be in the forst just outside of Tarein.",
+				"Years ago I wounded a beast called Yeoron. He eventually healed,\nand when I was fighting elsewhere, slew my brothers. I was injured trying to avenge them.\nKill Yeoron for me. He should be in the forest just outside of Tarein.",
 			validReq: [{ spar: [_home + "Dad"] }],
 			doneReq: [{ dead: ["World_ForestTarein_Yeoron"] }],
-			reward: { item: "Cagnil", rep: 20, inf: 100 }
+			reward: { inf: 150, rep: 25, item: "Cagnil" }
 		}
 	},
 	doneReq: [{ quest: [_home + "Dad"] }]
@@ -91,10 +91,7 @@ CharLianData[_dojo + "StudentAtk"] = new Character({
 		}
 	],
 	interact: {
-		spar: {
-			time: 2,
-			reward: { inf: 2, atk: 5 }
-		},
+		spar: { time: 2, reward: { inf: 2, atk: 10 } },
 		train: { stat: "atk", multiplier: 1.0, time: 10 }
 	},
 	doneReq: [{ spar: [_dojo + "StudentAtk"] }]
@@ -118,7 +115,7 @@ CharLianData[_dojo + "StudentDef"] = new Character({
 		}
 	],
 	interact: {
-		spar: { time: 2, reward: { inf: 2, def: 5 } },
+		spar: { time: 2, reward: { inf: 2, def: 10 } },
 		train: { stat: "def", multiplier: 1.0, time: 10 }
 	},
 	doneReq: [{ spar: [_dojo + "StudentDef"] }]
@@ -141,7 +138,7 @@ CharLianData[_dojo + "StudentAgi"] = new Character({
 		}
 	],
 	interact: {
-		spar: { time: 2, reward: { inf: 2, agi: 5 } },
+		spar: { time: 2, reward: { inf: 2, agi: 10 } },
 		train: { stat: "agi", multiplier: 1.0, time: 10 }
 	},
 	doneReq: [{ spar: [_dojo + "StudentAgi"] }]
@@ -150,7 +147,7 @@ CharLianData[_dojo + "StudentAgi"] = new Character({
 CharLianData[_dojo + "Teacher"] = new Character({
 	name: "Gordon",
 	about: "A kind, old retired soldier from Tarein. The head instructor of the dojo.",
-	cst: 220,
+	cst: 180,
 	atk: 175,
 	def: 250,
 	agi: 165,
@@ -171,19 +168,15 @@ CharLianData[_dojo + "Teacher"] = new Character({
 		}
 	],
 	interact: {
-		spar: { time: 3, reward: { inf: 5, cst: 10, skill: SkillNames.PAS_INFANTRY } },
+		spar: { time: 3, reward: { inf: 10, cst: 20, passive: SkillNames.PAS_INFANTRY } },
 		train: { stat: "cst", multiplier: 1.0, time: 10 },
-		teachSkill: {
-			skillId: SkillNames.DEF_PARRY,
-			validReq: [{ def: 130 }],
-			time: 25
-		},
+		teachSkill: { skillId: SkillNames.DEF_PARRY, validReq: [{ def: 130 }], time: 25 },
 		quest: {
 			about: "Go and beat my students.",
-			validReq: [{ atk: 105, def: 105, agi: 105 }],
+			validReq: [{ atk: 100, def: 100, agi: 100 }],
 			doneReq: [{ spar: [_dojo + "StudentAtk", _dojo + "StudentDef", _dojo + "StudentAgi"] }],
-			reward: { inf: 1, atk: 3, def: 3, skill: SkillNames.ATK_DSTAB },
-			doneText: "Use your new skill wisely."
+			reward: { inf: 1, atk: 10, def: 10, skill: SkillNames.ATK_DSTAB },
+			doneText: "Use your new skill wisely. Go see Giqral in school to learn some agility skills."
 		}
 	},
 	doneReq: [{ skill: [SkillNames.DEF_PARRY] }]
@@ -207,7 +200,7 @@ CharLianData[_school + "StudentInf"] = new Character({
 			about: "Convince Giqral to give you a copy of the book 'The History of Tarein'. ",
 			validReq: [{}],
 			doneReq: [{ item: ["Book_History_Tarein"] }],
-			reward: { inf: 5 },
+			reward: { inf: 5, int: 10 },
 			take: { item: ["Book_History_Tarein"] },
 			doneText: "Okay, I'll introduce you to Toraq. You can find him in the town hall."
 		}
@@ -278,12 +271,14 @@ CharLianData[_school + "Teacher"] = new Character({
 			validReq: [{}],
 			doneReq: [{ spar: [_dojo + "Teacher"] }],
 			reward: {
-				item: "Book_History_Tarein",
-				inf: 5
+				inf: 10,
+				agi: 10,
+				item: "Book_History_Tarein"
 			},
 			doneText: "Hehe, that was fun."
 		}
 	},
+	validReq: [{ quest: [_dojo + "Teacher"] }],
 	doneReq: [{ quest: [_school + "Teacher"] }]
 });
 
@@ -297,34 +292,71 @@ CharLianData[_hall + "Messenger"] = new Character({
 	inf: 30
 });
 
-CharLianData[_hall + "Sheriff"] = new Character({
-	name: "Sheriff",
-	about: "A soldier who served under Toraq. The town sheriff.",
-	cst: 350,
-	atk: 250,
-	def: 400,
-	agi: 245,
-	int: 150,
-	inf: 300
+CharLianData[_hall + "Guard"] = new Character({
+	name: "Guard",
+	about: "A skilled infantryman who served under the town sheriff. The town guard.",
+	cst: 200,
+	atk: 150,
+	def: 210,
+	agi: 150,
+	int: 125,
+	inf: 90,
+	passive: [SkillNames.PAS_WOLF, SkillNames.PAS_INFANTRY],
+	skill: [SkillNames.BASIC, SkillNames.ATK_DSTAB, SkillNames.DEF_PARRY],
+	logic: CombatLogicNames.BASIC,
+	talk: [{ question: "Hi", answer: "Blah" }],
+	interact: {
+		spar: { time: 2, reward: { inf: 10, def: 20 } }
+	},
+	doneReq: [{ spar: [_hall + "Guard"] }]
 });
 
-CharLianData[_hall + "Guard"] = new Character({
-	name: "Guard"
+CharLianData[_hall + "Sheriff"] = new Character({
+	name: "Sheriff",
+	about: "A soldier who served under the town chief, Toraq. The town sheriff.",
+	cst: 400,
+	atk: 250,
+	def: 400,
+	agi: 225,
+	int: 225,
+	inf: 300,
+	passive: [SkillNames.PAS_WOLF, SkillNames.PAS_SOLDIER, SkillNames.PAS_MESSENGER],
+	skill: [SkillNames.SOLDIER],
+	logic: CombatLogicNames.SOLDIER,
+	talk: [{ question: "Hi", answer: "Hi" }],
+	interact: {
+		train: { stat: "def", multiplier: 1.1, time: 11 },
+		spar: { time: 4, reward: { inf: 20, def: 30 } }
+	},
+	validReq: [{ char: [_hall + "Guard"] }],
+	doneReq: [{ spar: [_hall + "Sheriff"], quest: [_hall + "Sheriff"] }]
 });
 
 CharLianData[_hall + "Chief"] = new Character({
 	name: "Toraq",
 	about: "A retired knight. The chief of the town.",
-	cst: 1000,
+	cst: 950,
 	atk: 750,
-	def: 1200,
-	agi: 450,
-	int: 400,
+	def: 950,
+	agi: 550,
+	int: 500,
 	inf: 1500,
 	passive: [SkillNames.PAS_BEAR, SkillNames.PAS_WARRIOR, SkillNames.PAS_KNIGHT],
 	skill: [SkillNames.KNIGHT],
 	logic: CombatLogicNames.KNIGHT,
-	validReq: [{ char: [_school + "StudentInf"] }]
+	talk: [{ question: "Hi", answer: "Hi" }],
+	interact: {
+		spar: { time: 5, reward: { inf: 40, cst: 40, def: 40 } },
+		quest: {
+			about: "Promote the fame of Lian through yourself.",
+			validReq: [{ inf: 200 }],
+			doneReq: [{ inf: 1000 }],
+			reward: { inf: 10, rep: 2, int: 10, item: "Letter_Boris" },
+			doneText: "Thank you. Take this letter to Boris in Tarein and he'll help you learn a new skill."
+		}
+	},
+	validReq: [{ char: [_school + "StudentInf"] }],
+	doneReq: [{ spar: [_hall + "Chief"], quest: [_hall + "Chief"] }]
 });
 
 // Shop
@@ -341,10 +373,19 @@ CharLianData[_shop + "Storekeeper"] = new Character({
 CharLianData[_center + "CrazyOldMan"] = new Character({
 	name: "Crazy Old Man",
 	about: "An insane old man.",
-	cst: 50,
-	def: 40,
-	agi: 80,
-	int: 20
+	cst: 10,
+	def: 20,
+	agi: 10,
+	int: 0,
+	talk: [
+		{ question: "Hi?", answer: "They're coming, they're coming." },
+		{
+			question: "What's coming?",
+			answer: "It's red, red, red, red.",
+			done: "The eyes, they're red. Red. Red. RED."
+		}
+	],
+	doneReq: [{ int: 1200 }]
 });
 
 export default CharLianData;
