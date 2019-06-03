@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6ec686362d14aa5d4541c06067b6ba72",
+    "revision": "a512ba64d60bdde9f3a7ccb78576144a",
     "url": "/Rifeel-LOaF/index.html"
   },
   {
-    "revision": "9e32289dc58fb64f7816",
+    "revision": "104797768844f9804c17",
     "url": "/Rifeel-LOaF/static/css/main.a5c12791.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Rifeel-LOaF/static/js/2.56598972.chunk.js"
   },
   {
-    "revision": "9e32289dc58fb64f7816",
-    "url": "/Rifeel-LOaF/static/js/main.bf7a5209.chunk.js"
+    "revision": "104797768844f9804c17",
+    "url": "/Rifeel-LOaF/static/js/main.bd7fb2de.chunk.js"
   },
   {
     "revision": "79464b51b2f61751b253",

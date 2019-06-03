@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Rifeel-LOaF/precache-manifest.f7a4f49b0bfc3ae68ae12439544e20e7.js"
+  "/Rifeel-LOaF/precache-manifest.503199dabdd68e9b50b623c3635e9b82.js"
 );
 
 self.addEventListener('message', (event) => {
