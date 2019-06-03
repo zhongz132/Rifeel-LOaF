@@ -52,6 +52,8 @@ function _Location(locId, parent, context) {
 
 // The base location. The parent to the highest level locations. Should never be referenced.
 var _baseLoc = new _Location(_baseId, undefined, undefined);
+GameData[_baseId] = _baseLoc;
+GameNames.Location[_baseId] = _baseId;
 
 /**
  * Functions which are supported by location.
@@ -69,21 +71,36 @@ let createLocId = function(locName, parent) {
 /**
  * Overwritten functions.
  */
+
+// Is this needed?
+/*
 Loc["_idExists"] = function(locId) {
-	if (locId in GameNames.Locations) return true;
+	if (locId in GameNames.Location) return true;
 	return false;
 };
+*/
 
-Loc["addChildren"] = function(locId, parentId) {
-	if (!this._idExists(locId) || !this._idExists(parentId)) throw ReferenceError("Parent or child does not exist.");
-	GameData[parentId].children.push(locId);
+Loc["_idExists"] = function(locId) {
+	if (locId in GameNames.Location) return true;
+	return false;
+}
+
+// No error check. This should always be done by the caller.
+Loc["addChildren"] = function(locId, parent) {
+	GameData[parent].children.push(locId);
 }
 
 // TODO: MAYBE CHANGE WHAT THIS DOES
 Loc["setChildren"] = function(locId, children) {
-	if (!this._idExists(locId)) throw ReferenceError("Id does not exist,", locId);
+	if (!this._idExists(locId)) throw new ReferenceError("Id does not exist,", locId);
 	console.log("Warning: Setting children without properly deleting them may cause unreferend locations.")
 	GameData[locId].children = children;
+}
+
+// No error check. This should always be done by the caller.
+Loc["addElement"] = function(elementId, parent) {
+	if (!this._idExists(parent)) throw new ReferenceError("Location to add element does not exist.");
+	GameData[parent].elements.push(elementId);
 }
 
 Loc["create"] = function(locName, parent, context) {
@@ -91,14 +108,14 @@ Loc["create"] = function(locName, parent, context) {
 		console.log("Tried to build " + _tries + " locations and succeeded on " + _success + " of them.");
 	}
 	_tries += 1;
-	if (!this.idExists(parent)) throw new ReferenceError("Parent does not exist,", parent);
+	if (!this._idExists(parent)) throw new ReferenceError("Parent does not exist,", parent);
 	let newLocId = createLocId(locName, parent);
-	if (this.idExists(newLocId)) throw new ReferenceError("Duplicate keys,", newLocId);
+	if (this._idExists(newLocId)) throw new ReferenceError("Duplicate keys,", newLocId);
 
 	// Double check error pased. Now to create the object.
 	let newLocation = new _Location(newLocId, parent, context);
 	GameData[newLocId] = newLocation;
-	GameNames.Locations[newLocId] = newLocId;
+	GameNames.Location[newLocId] = newLocId;
 	// Add the childId to the parent's children.
 	this.addChildren(newLocId, parent);
 	_success += 1;

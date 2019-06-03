@@ -3,9 +3,22 @@
  *
  * Utility functions useful for all objects.
  */
+import {GameData, GameNames} from "./../Data.js";
 const Util = {
-	// Takes a prefix defined in Data and outputs the key
-	_prefixToName(prefix) {}
+	_idExists: function(id) {
+		if (id in GameData) return true;
+		return false;
+	},
+
+	_LocExists: function(id) {
+		if (id in GameNames.Location) return true;
+		return false;
+	},
+
+	_EleExists: function(id) {
+		if (id in GameNames.Element) return true;
+		return false;
+	}
 };
 
 export default Util;

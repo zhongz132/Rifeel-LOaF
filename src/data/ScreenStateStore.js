@@ -16,8 +16,10 @@ class ScreenStateStore extends ReduceStore {
 	getInitialState() {
 		return {
 			name: "Alice",
+			userId: "",
 			screen: "Home",
-			gameId: 0,
+			gameVersion: "Rifeel-LOaF-0.01",
+			gameId: 0
 		};
 	}
 

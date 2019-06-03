@@ -28,6 +28,13 @@ class GameStore extends ReduceStore {
 	}
 
 	getInitialState() {
+		GameTest.Location.create("World", "LOC");
+		GameTest.printData();
+		GameTest.Location.create("Dojo", "LOC_WORLD");
+		GameTest.Location.create("School", "LOC_WORLD");
+		GameTest.Location.create("Shop", "LOC_WORLD");
+		GameTest.Location.delete("LOC_WORLD");
+		GameTest.SaveGameVersion();
 		return UpdateLoc(new Game(), "World_Lian");
 	}
 
@@ -103,7 +110,7 @@ class GameStore extends ReduceStore {
 					player: state.player.set(action.stat, state.player[action.stat] + toAdd),
 					dialCharText: "",
 					dialSysText: "You gained " + toAdd + " points in " + action.stat.toUpperCase(),
-					time: state.time +  state.CharData[state.curChar].interact.train.time
+					time: state.time + state.CharData[state.curChar].interact.train.time
 				});
 				return UpdateChar(state, state.dialCharId);
 
@@ -135,7 +142,7 @@ class GameStore extends ReduceStore {
 				let reward = state.CharData[action.charId].interact.quest.reward;
 				state = ProcessRewards(state, reward);
 				if (state.CharData[action.charId].interact.quest.take) {
-					state = ProcessTake(state, state.CharData[action.charId].interact.quest.take)
+					state = ProcessTake(state, state.CharData[action.charId].interact.quest.take);
 				}
 				return state.merge({
 					completeQuest: [...state.completeQuest, action.charId],

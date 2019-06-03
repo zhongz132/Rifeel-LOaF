@@ -74,7 +74,10 @@ const GameObject = {
 		if (objectType === _prefix.Interaction || objectType === _prefix.Item || objectType === _prefix.Skill) {
 			objectSubType = this._getObjSubType(id);
 		}
+		objectType = _prefixToName[objectType];
+		console.log(objectType, id);
 		if (objectSubType !== undefined) {
+			objectSubType = _prefixToName[objectSubType];
 			delete GameNames[objectType][objectSubType][id];
 		} else delete GameNames[objectType][id];
 		delete GameData[id];
@@ -94,7 +97,7 @@ const GameObject = {
 		console.log("Warning: Deleted object", id, "and all objects reliant on it.");
 		let parentId = GameData[id].parent;
 		// Recursive delete
-		this._delete.call(null, id);
+		this._delete.call(this, id);
 		// Remove the element from the parent's children
 		// This is inefficient, as linear time search, but we need to perserve order.
 		// Thankfully, there should never be more than 10-11 children in an object, so it does not

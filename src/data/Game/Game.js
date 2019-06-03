@@ -6,6 +6,25 @@
 
 import GameObject from "./Common/GameObject.js";
 import LocationObject from "./Locations/Location.js";
+import ElementObject from "./Elements/Element.js";
+import { GameData } from "./Data.js";
+/*
+var fs = require("./defuntdata.json");
+
+for (let i in fs) {
+	console.log(i, fs[i]);
+}
+*/
+
+var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(GameData));
+
+var a = document.createElement("a");
+a.href = "data:" + data;
+a.download = "data.json";
+a.innerHTML = "download JSON";
+
+var container = document.getElementById("container");
+container.appendChild(a);
 
 /**
  * TODO:
@@ -21,13 +40,22 @@ import LocationObject from "./Locations/Location.js";
 const Game = {
 	GameObject: GameObject,
 	Location: LocationObject,
+	Element: ElementObject,
 
-	LoadGame: function() {
+	LoadGame: function() {},
 
+	SaveGame: function() {},
+
+	LoadDeveloper: function() {},
+
+	SaveGameVersion: function() {
+		console.log("Saving: ", GameData);
+		data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(GameData));
+		a.href = "data:" + data;
 	},
-	
-	LoadDeveloper: function() {
 
+	printData: function() {
+		console.log(GameData);
 	}
 };
 

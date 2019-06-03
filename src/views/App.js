@@ -96,7 +96,7 @@ function homeScreen(props) {
 	return (
 		<div id="Main-home">
 			<h1 id="Home-title">Rifeel</h1>
-			<h2>The Life of a Follower</h2>
+			<h2>The Life of a Fighter</h2>
 			<button id="button-text" onClick={() => props.onSwitchScreen("Game")}>
 				Begin Game
 			</button>{" "}

@@ -5,17 +5,16 @@
  */
 
 import verboseSettings from "./../../verboseSettings.js";
+import GameObject, { _GameObject } from "./../Common/GameObject.js";
 import Loc from "./../Locations/Location.js";
+import { GameNames, GameData, _prefix, _prefixToName } from "./../Data.js";
 
 // Used to remember statsitics on build. Can help in debuggin
 let _tries = 0;
 let _success = 0;
 
 // Prefix for all elements
-let _elePrefix = "ELE_";
-
-// Hash map from elementId to the appropriate object.
-let _EleNames = {};
+let _elePrefix = _prefix.Element;
 
 /**
  * Constructor for an element. These are usually characters which are interactable.
@@ -32,133 +31,41 @@ let _EleNames = {};
  *    doneReqs (Logic): Requirements for the element to be marked as done.
  *    interactions (Logic/Screen): The interactions available to the character.
  */
-function _Element(elementId, parentId, context) {
-	this.elementId = elementId;
-	this.parentId = parentId;
-	this.name = "";
-	this.about = "";
+function _Element(elementId, parent, context) {
+	_GameObject.call(this, elementId, parent, context);
 	this.type = "TYPE_NONE";
 	this.logic = "LOGIC_BASIC";
-	this.showReqs = [];
-	this.validReqs = [];
-	this.doneReqs = [];
-	this.interactions = [];
 	if (context) {
-		if (context.name) {
-			if (typeof context.name === "string") this.name = context.name;
-			else console.log("Warning: Invalid name type.");
-		} else console.log("Warning: Created an element,", elementId, "with no name.");
-		if (context.about) {
-			if (typeof context.about === "string") this.about = context.about;
-			else console.log("Warning: Invalid about type.");
-		} else console.log("Warning: Created an element,", elementId, "with no about.");
-		if (context.type) {
-			if (typeof context.type === "string") this.type = context.type;
-			else console.log("Warning: Invalid type (element) type.");
-		} else console.log("Warning: Created an element,", elementId, "with no type(element).");
-		if (context.logic) {
-			if (typeof context.logic === "string") this.logic = context.logic;
-			else console.log("Warning: Invalid logic type.");
-		} else console.log("Warning: Created an element,", elementId, "with no logic.");
-		if (context.showReqs) {
-			if (Array.isArray(context.showReqs)) this.showReqs = context.showReqs;
-			else console.log("Warning: Invalid showReqs type.");
-		}
-		if (context.validReqs) {
-			if (Array.isArray(context.validReqs)) this.validReqs = context.validReqs;
-			else console.log("Warning: Invalid validReqs type.");
-		}
-		if (context.doneReqs) {
-			if (Array.isArray(context.doneReqs)) this.doneReqs = context.doneReqs;
-			else console.log("Warning: Invalid doneReqs type.");
-		}
-		if (context.interactions) {
-			if (Array.isArray(context.interactions)) this.interactions = context.interactions;
-			else console.log("Warning: Invalid interactions type.");
-			console.log("Warning: Added interactions,", context.interactions, "to element", elementId, "at creation.");
-		}
+		if (context.type && typeof context.type === "string") this.type = context.type;
+		if (context.logic && typeof context.logic === "string") this.logic = context.logic;
 	} else {
-		console.log("Warning: Created a game element", elementId, "with no context in,", parentId);
+		console.log("Warning: Created a game element", elementId, "with no context in,", parent);
 	}
-	_EleNames[elementId] = this;
 }
 
-_Element.prototype.addInteraction = function(interactId) {
-	this.interactions.push(interactId);
-};
+let _createElementId = function(elementName, parent) {
+	return parent + "_" + elementName.toUpperCase();
+}
 
-const Ele = {
-	// Checks if the elementName is valid. Returns true if so, otherwise false.
-	_validElementName(elementName) {
-		if (!elementName) {
-			console.log("Null Error: Element name is null.");
-			return false;
-		}
-		if (typeof elementName !== "string") {
-			console.log("Type error: Invalid elementName type,", elementName);
-			return false;
-		}
-		if (elementName[0] === "_") {
-			console.log("CRITICAL LOGIC ERROR: Element names can not start with _", elementName);
-			return false;
-		}
-		if (elementName[elementName.length - 1]) {
-			console.log("CRITICAL LOGIC ERROR: Element names can not end with _", elementName);
-			return false;
-		}
-		return true;
-	},
+var Ele = Object.create(GameObject);
 
-	// Gets the elementId from the elementName and parentId. Returns the elementId.
-	_getElementId(elementName, parentId) {
-		return parentId + elementName.toUpperCase();
-	},
-
-	// Checks if an element id exists. Returns true if so, false otherwise.
-	_existElementId(elementId) {
-		if (elementId in _EleNames) return true;
-		return false;
-	},
-
-	newEle(elementName, parentId, context) {
-		// Keep track of stats
-		if (verboseSettings.statBuild && _tries % verboseSettings.statBuildFreq === 0) {
-			console.log("Tried to build: " + _tries + " elements, successed on " + _success + ".");
-		}
-		_tries += 1;
-
-		// Error checks
-		// This also checks for a valid parentId, by design.
-		if (!Loc.includes(parentId)) {
-			console.log("Invalid parentId", parentId, "when creating element,", elementName);
-			return "";
-		}
-		if (!_validElementName(elementName)) return "";
-		let newElementId = _getElementId(elementName, parentId);
-		if (_existElementId(newElementId)) {
-			console.log("Logic Error: Duplicate element ids,", newElementId);
-			return "";
-		}
-
-		new _Element(newElementId, parentId, context);
-		if (Loc.addElement(parentId, newElementId)) {
-			success += 1;
-			return newElementId;
-		} else {
-			// This is really, really, bad. Something went horribly wrong. Please check.
-			console.log("FATAL ERROR: PASSED ERROR CHECKS BUT FAILED TO ADD TO LOCATION ELEMENTS.");
-			return "";
-		}
-	},
-
-	/**
-	 * Adds an interaction to an element. Takes an elementId and interactId. Returns the size of
-	 * interactions.
-	 */
-	addInteraction(elementId, interactId) {
-		_EleNames[elementId].addInteraction(interactId);
-		return _EleNames[elementId].interactions.length;
+Ele["create"] = function(elementName, parent, context) {
+	if (verboseSettings.statBuild && _tries % verboseSettings === 0) {
+		console.log("Tried to build " + _tries + " elements and succeeded on " + _success + " of them.");
 	}
+	_tries += 1;
+	// Error checks
+	if (this._getObjType(parent) !== _prefix.Location) throw new ReferenceError("Parent of element not a location.");
+	if (!Loc._idExists(parent)) throw new ReferenceError("Parent location does not exist.");
+	let newElementId = _createElementId(elementName, parent);
+	if (this._idExists(newElementId)) throw new ReferenceError("Duplicate element name in location.");
+
+	let newElement = new _Element(newElementId, parent, context);
+	GameData[newElementId] = newElement;
+	GameNames.Element[newElementId] = newElementId;
+	// Add to parent
+	Loc.addElement(newElementId, parent);
+	_success += 1;
 };
 
 export default Ele;

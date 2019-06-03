@@ -70,9 +70,9 @@ export const _prefixToName = {
  * Segements created by the searchable segmenets.
  */
 export const GameNames = {
-	Locations: {},
-	Elements: {},
-	Interactions: {
+	Location: {},
+	Element: {},
+	Interaction: {
 		Talk: {},
 		Learn: {},
 		Quest: {},
@@ -80,20 +80,20 @@ export const GameNames = {
 		Battle: {},
 		Trade: {}
 	},
-	Items: {
+	Item: {
 		Weapon: {},
 		Armor: {},
 		Quest: {},
 		Other: {}
 	},
-	Passives: {},
-	Skills: {
+	Passive: {},
+	Skill: {
 		Attack: {},
 		Defense: {},
 		Agility: {},
 		Other: {}
 	},
-	Types: {},
+	Type: {},
 	Logic: {}
 };
 
