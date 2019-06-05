@@ -26,17 +26,15 @@ let _success = 0;
 let _intPrefix = _prefix.Interaction;
 
 let _createSubInteraction = {
-	Talk: function(context) {
-
-	},
+	Talk: function(context) {},
 
 	// learnType: Either a skill, passive, or a stat (CST, ATK, DEF, AGI, INT)
 	// learnValue: If a skill or passive, need a valid skill or passive. The caller will check this.
-    //             If a stat, must be a number or a string convertable to a number.
+	//             If a stat, must be a number or a string convertable to a number.
 	Learn: function(context) {
 		this.learnType = undefined;
 		this.learnValue = undefined;
-		if ((context.learnType) && (typeof context.learnType === "string")) {
+		if (context.learnType && typeof context.learnType === "string") {
 			if (context.learnValue === null || context.learnValue === undefined) {
 				throw new Error("Must provide a learnValue with learnType");
 			}
@@ -44,23 +42,20 @@ let _createSubInteraction = {
 			// To learn a skill a passive
 			if (context.learnType === _prefix.Skill || context.learnType === _prefix.Passive) {
 				if (typeof context.learnValue !== "string") throw new TypeError("Skill name must be a string");
-				if (!GameObject._idExists(context.learnValue)) throw new ReferenceError("Skill does not exists in learn.");
+				if (!GameObject._idExists(context.learnValue))
+					throw new ReferenceError("Skill does not exists in learn.");
 				this.learnValue = context.learnValue;
-			}
-			else {
+			} else {
 				if (typeof context.learnValue === "number") this.learnValue = context.learnValue;
 				else if (typeof context.learnValue === "string") {
 					try {
 						this.learnValue = Number(context.learnValue);
-					}
-					catch(error) {
+					} catch (error) {
 						throw error;
 					}
-				}
-				else throw new TypeError("learnValue must be a number or string.");
+				} else throw new TypeError("learnValue must be a number or string.");
 			}
 		}
-
 	},
 
 	// reward: A new reward object for finishing the quest.
@@ -91,12 +86,12 @@ let _createSubInteraction = {
 	},
 
 	// costs: An array to hold the costs of each of the children.
-    //        At creation, there will be no costs, and must add items after.
+	//        At creation, there will be no costs, and must add items after.
 	Trade: function(context) {
 		this.costs = [];
 		if (context.costs) console.log("Costs appeared at the construction of an interaction. This is ignored");
 	}
-}
+};
 
 function _Interaction(interactId, parent, type, context) {
 	_GameObject.call(this, interactId, parent, context);
@@ -129,8 +124,8 @@ let _createInteractId = function(type, parent) {
 		}
 		return newInteractId;
 	} else {
-		let newInteractId = _intPrefix + "_" + type + "_" + parent
-		if (this._idExists(newInteractId)) throw new ReferenceError("Duplicate interaction type.")
+		let newInteractId = _intPrefix + "_" + type + "_" + parent;
+		if (this._idExists(newInteractId)) throw new ReferenceError("Duplicate interaction type.");
 		return _intPrefix + "_" + type + "_" + parent;
 	}
 };
@@ -138,7 +133,7 @@ let _createInteractId = function(type, parent) {
 let _validSubtype = function(subtype) {
 	if (subtype in _interactionPrefix) return true;
 	return false;
-}
+};
 
 var Int = Object.create(GameObject);
 

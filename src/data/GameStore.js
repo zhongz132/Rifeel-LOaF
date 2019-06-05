@@ -20,7 +20,7 @@ import StartSpar from "./Utils/StartSpar.js";
 import GetSkillInfo from "./Utils/GetSkillInfo.js";
 import ProcessSkill from "./Utils/ProcessSkill.js";
 import ProcessSBEnd from "./Utils/ProcessSBEnd.js";
-import GameTest from "./Game/Game.js";
+//import GameTest from "./Game/Game.js";
 
 class GameStore extends ReduceStore {
 	constructor() {
