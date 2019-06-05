@@ -7,6 +7,7 @@
 import GameObject from "./Common/GameObject.js";
 import LocationObject from "./Locations/Location.js";
 import ElementObject from "./Elements/Element.js";
+import InteractionObject from "./Interactions/Interaction.js";
 import { GameData } from "./Data.js";
 /*
 var fs = require("./defuntdata.json");
@@ -41,6 +42,7 @@ const Game = {
 	GameObject: GameObject,
 	Location: LocationObject,
 	Element: ElementObject,
+	Interaction: InteractionObject,
 
 	LoadGame: function() {},
 

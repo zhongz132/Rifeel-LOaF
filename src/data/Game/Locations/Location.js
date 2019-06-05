@@ -3,8 +3,8 @@
  *
  * Definition of the location object and its supporting funtions.
  * Generate new location, get location information, and maintain the relationship between them.
- * Creating a new location is expensive, but everything else can be done in average O(1) through hash lookup.
- * Note: locIds (string) will all start with "LOC_", then the location name, but the path should never include "LOC"
+ * Deleting a high level location is expensive but everything else can be done in average O(1) through design.
+ * Every game version must have a base Location, "LOC", which all other locations must be a child of.
  */
 
 import verboseSettings from "./../../verboseSettings.js";
@@ -16,23 +16,15 @@ let _tries = 0;
 let _success = 0;
 
 // Definition of the prefix for all locations
-let _locPrefix = _prefix.Location;
 let _baseId = "LOC";
 
 /**
  * Constructor for a location. Each location requires a unique path and parent, which will be handeled internally.
  *
  * Description of each member variable:
- *    locId (Internal): The locId of the current location. Needed for creating children efficeiently.
- *    parent (Internal): The parent locId of the current location.
- *    children (Internal): The children locIds of the current location. We are garunteed each child is unique
- *                         by design. Furthermore, we usually only push to the back. Only in dev tools, and
- *                         rarely so, do we ever want to delete.
- *    name (Screen): The name to display in the game screen of the location.
- *    about (Screen): A description of the location to display in the game screen.
- *    showReqs (Logic): Requirements to show the location.
- *                      *Pretty rarely used, but makes sense to exist.*
- *    validReqs (Logic): Requirements for the location to be valid (enterable by player).
+ *    Inherits members from GameObject except:
+ *    children (Logic): The children locations accesible from the current location. Can only contain locations.
+ *
  *    elements (Logic): The elements accessible in this location. Maps elementId to the display name on game screen.
  *                      We check for uniquenes.
  *                      *Can add to this externally.*
@@ -65,7 +57,7 @@ var Loc = Object.create(GameObject);
  */
 let createLocId = function(locName, parent) {
 	locName = locName.toUpperCase();
-	return parent + "_" + locName;
+	return _prefix.Location + "_" + parent + "_" + locName;
 }
 
 /**

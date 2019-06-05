@@ -28,13 +28,6 @@ class GameStore extends ReduceStore {
 	}
 
 	getInitialState() {
-		GameTest.Location.create("World", "LOC");
-		GameTest.printData();
-		GameTest.Location.create("Dojo", "LOC_WORLD");
-		GameTest.Location.create("School", "LOC_WORLD");
-		GameTest.Location.create("Shop", "LOC_WORLD");
-		GameTest.Location.delete("LOC_WORLD");
-		GameTest.SaveGameVersion();
 		return UpdateLoc(new Game(), "World_Lian");
 	}
 

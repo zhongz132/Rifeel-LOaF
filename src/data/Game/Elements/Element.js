@@ -2,6 +2,10 @@
  * Element.js by zhongz132@gmail.com
  *
  * Definition of each element object, and how to create and modify one.
+ * Each element MUST have a location as a parent. 
+ * Each element is unique, and each element name within the scope of a location must be unique.
+ * Elements may only have interactions as their children. This will be handeled by the caller.
+ * Element names are ELE_(parent)_(elementName)
  */
 
 import verboseSettings from "./../../verboseSettings.js";
@@ -20,16 +24,11 @@ let _elePrefix = _prefix.Element;
  * Constructor for an element. These are usually characters which are interactable.
  *
  * Description of each member varible:
- *    elementId (internal): The unique elementId of the element.
- *    parentId (internal): The unique parentId of the element.
- *    name (Screen): The name the element will display on the game screen.
- *    about (Screen): The description of the element to display on the game screen.
+ *    Inherit the same for a regular object, EXCEPT:
+ *    children (Logic): Holds only interaction Ids.
+ *
  *    type (Logic): The type of character. This will determine stats, passives, and skills of a element.
  *    logic (Logic): The actions the character will take in a spar or battle.
- *    showReqs (Logic): Requirements to show the element.
- *    validReqs (Logic): Requirements for the element to be interactable.
- *    doneReqs (Logic): Requirements for the element to be marked as done.
- *    interactions (Logic/Screen): The interactions available to the character.
  */
 function _Element(elementId, parent, context) {
 	_GameObject.call(this, elementId, parent, context);
@@ -44,7 +43,7 @@ function _Element(elementId, parent, context) {
 }
 
 let _createElementId = function(elementName, parent) {
-	return parent + "_" + elementName.toUpperCase();
+	return _elePrefix + "_" + parent + "_" + elementName.toUpperCase();
 }
 
 var Ele = Object.create(GameObject);
@@ -67,5 +66,11 @@ Ele["create"] = function(elementName, parent, context) {
 	Loc.addElement(newElementId, parent);
 	_success += 1;
 };
+
+// Adds an interaction to the children. Error check for interactId should be only done by the caller
+Ele["addChildren"] = function(interactId, parent) {
+	if (!this._idExists(parent)) throw new ReferenceError("Parent element does not exist.");
+	GameData[parent].children.push(interactId);
+}
 
 export default Ele;

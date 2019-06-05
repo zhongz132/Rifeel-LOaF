@@ -16,8 +16,8 @@ export function _GameObject(id, parent, context) {
 	this.parent = parent;
 	// We should never create an object with children in it.
 	this.children = [];
-	this.name = "";
-	this.about = "";
+	this.name = "GameObject";
+	this.about = "GameObject About";
 	this.showReqs = [];
 	this.validReqs = [];
 	this.doneReqs = [];
