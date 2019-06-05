@@ -21,6 +21,7 @@ class ScreenStateStore extends ReduceStore {
 			gameVersion: "Rifeel-LOaF-0.01",
 			gameId: 0
 		};
+		// Should not be here in head
 	}
 
 	reduce(state, action) {
