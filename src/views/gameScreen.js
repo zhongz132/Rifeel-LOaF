@@ -1,51 +1,70 @@
 /**
- * gameScreen.js by zhongz132@gmail.com
+ * App.js by zhongz132@gmail.com
  *
- * Holds views for the game screen.
+ * Holds views for all game locations
  */
 
 import React from "react";
-import gamePlayerInfo from "./gamePlayerInfo.js";
-import gameNav from "./gameNav.js";
-import gameChars from "./gameChars.js";
-import gameInteractions from "./gameInteractions.js";
-import gameSparBattle from "./gameSparBattle.js";
+import gamePlayer from "./gamePlayer.js";
 
-// GAME SCREEN BASE
 function gameScreen(props) {
-	if (props.gameState.curLoc === "Spar" || props.gameState.curLoc === "Battle") {
-		return (
-			<div id="Game-screen">
-				<div id="Game-time>"> Time: {props.gameState.time} </div>
-				<div id="Game-main">
-					{gameSparBattle({ ...props })}
-				</div>
-				<div id="Game-player">{gamePlayerInfo({ ...props })}</div>
-				<div id="Game-dialog">
-					System: {props.gameState.dialSysText}
-					<br />
-					Dialog: {props.gameState.dialCharText}
-				</div>
-			</div>
-		);
-	} else {
-		return (
-			<div id="Game-screen">
-				<div id="Game-time>"> Time: {props.gameState.time} </div>
-				<div id="Game-main">
-					{gameNav({ ...props })}
-					{gameChars({ ...props })}
-					{gameInteractions({ ...props })}
-				</div>
-				<div id="Game-player">{gamePlayerInfo({ ...props })}</div>
-				<div id="Game-dialog">
-					System: {props.gameState.dialSysText}
-					<br />
-					Dialog: {props.gameState.dialCharText}
-				</div>
-			</div>
-		);
-	}
+	return (
+		<section id="App-main-game">
+			{gameMain(props)}
+			{gameDialog(props)}
+			{gameNav(props)}
+			{gamePlayer(props)}
+		</section>
+	);
+}
+
+function gameMain(props) {
+	return (
+		<section id="Game-main">
+			<section className="Game-part-header">Select an Element to Interact With!</section>
+			<section id="Game-main-info">
+				<section id="Game-main-elements">Game Elements</section>
+				<section id="Game-main-about">Game Elements About</section>
+				<section id="Game-main-interactions">Game Elements Interaction</section>
+			</section>
+		</section>
+	);
+}
+
+function gameDialog(props) {
+	return <section id="Game-dialog">Game Dialog</section>;
+}
+
+function gameNav(props) {
+	return (
+		<section id="Game-nav">
+			<section className="Game-part-header">Game Nav Header</section>
+			<section id="Game-nav-info">
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+				<br />
+				<button className="Game-nav-button">Nav Button</button>
+			</section>
+			<section id="Game-nav-return">
+				<button className="Game-nav-button">RETURN LOCATION</button>
+			</section>
+		</section>
+	);
 }
 
 export default gameScreen;

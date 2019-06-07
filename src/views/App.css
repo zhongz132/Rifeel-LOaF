@@ -1,5 +1,22 @@
-#App-about {
-	margin: 65px auto 0;
+#root {
+	position: fixed;
+	width: 720px;
+	min-width: 720px;
+	height: 540px;
+	min-width: 540px;
+	top: 10px;
+	left: 50%;
+	margin-left: -360px; /* Negative half of width. */
+	border-style: solid;
+}
+
+#root-about {
+	position: fixed;
+	top: 545px;
+	left: 50%;
+	min-width:720px;
+	width:720px;
+	margin-left:-360px;
 	color: #a6a6a6;
 	font-size: 12px;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
@@ -7,19 +24,38 @@
 }
 
 #App-header {
+	position: inherit;
 	text-align: center;
 	background-color: #dbfaff;
-	margin: 10px;
-	border-style: solid;
-	border-bottom-color: black;
 	word-spacing: 100px;
 	padding-top: 4px;
 	padding-bottom: 4px;
+	border-bottom-style: solid;
+	width: 100%;
+	height: 35px;
+}
+
+.button-header {
+	text-indent: center;
+	align-self: center;
+	padding: 10px;
+	width: 150px;
+}
+
+.button-header:hover {
+	background-color: #c5ccd8;
+}
+
+#App-main {
+	position: fixed;
+	text-align: center;
+	height: 495px;
+	width: 720px;
 }
 
 #Main-home {
 	text-align: center;
-	margin: 10px;
+	margin: 5px;
 }
 
 #Home-title {
@@ -30,104 +66,190 @@
 	text-align: center;
 	margin: 50px;
 	font-size: 12px;
+	float: center;
 }
 
-#button-header {
-	text-indent: center;
-	align-self: center;
-	padding: 10px;
-	width: 150px;
-}
-
-#text-header {
-	min-width: 120px;
-	resize: none;
-}
-
-button.game-button {
-	text-indent: left;
-	color: blue;
-	display: inline-block;
-	width: inherit;
-	padding: 4px;
-}
-
-#Game-screen {
-	padding: 10px;
-	align-self: center;
-}
-
-#Game-time {
-	float: left;
-	width: 100%;
+#App-main-game{
+	height: 100%;
+	text-align: left;
 }
 
 #Game-main {
-	float: left;
+	position: absolute;
+	left:0px;
+	top:0px;
 	height: 300px;
-	background-color: #C7FCDF;
-	width: 70%;
-	box-sizing: border-box;
-	box-shadow: inset 0px 0px 0px 3px black;
-}
-
-#Game-nav {
-	float: left;
-	width: 25%;
-	padding: 8px;
-	height: 300px;
+	width: 500px;
+	padding:4px;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	display:inline-block;
 	box-sizing: border-box;
 }
 
-#Game-characters {
+.Game-part-header {
 	float: left;
-	width: 25%;
-	padding: 8px;
-	height: 300px;
-	box-sizing: border-box;
+	width: 100%;
+	text-align: center;
+	text-decoration: underline;
+	display: inline-block;
 }
 
-#Game-interactions {
-	float: left;
-	width: 40%;
-	height: 300px;
-	padding: 8px;
-	box-sizing: border-box;
-}
-
-#Skill-title{
+#Game-main-info {
 	float: left;
 	width: 100%;
 }
 
-#Skill-names {
+#Game-main-elements {
 	float: left;
-	width: 80%;
-}
-
-#Skill-press {
-	float: left;
-	width: 18%;
-}
-
-#Game-player {
-	float: right;
-	width: 29%;
-	height: 400px;
-	padding: 1%;
+	width: 30%;
+	height: 275px;
 	box-sizing: border-box;
-	box-shadow: inset 0px 0px 0px 3px black;
+	padding: 4px 2px 4px 0px;
+	overflow-y: auto;
+}
+
+#Game-main-about {
+	float: left;
+	width: 40%;
+	height: 275px;
+	box-sizing: border-box;
+	padding: 4px 2px 4px 2px;
+	overflow-y: auto;
+}
+
+#Game-main-interactions {
+	float: left;
+	width: 30%;
+	height: 275px;
+	box-sizing: border-box;
+	padding: 4px 0px 4px 2px;
+	overflow-y: auto;
 }
 
 #Game-dialog {
-	float: left;
-	width: 70%;
-	height: 100px;
-	padding: 8px;
+	position: absolute;
+	left:0px;
+	top:300px;
+	height: 195px;
+	width: 500px;
+	padding:4px;
 	box-sizing: border-box;
-	box-shadow: inset 0px 0px 0px 3px black;
+	border-right-style: solid;
 }
 
-#underline {
-	text-decoration: underline;
+#Game-nav {
+	position: absolute;
+	top:0px;
+	left: 500px;
+	width:220px;
+	height:200px;
+	padding:4px;
+	border-bottom-style: solid;
+	box-sizing: border-box;
+}
+
+#Game-nav-info {
+	text-align: center;
+	overflow-y: auto;
+	height: 152px;
+	width: 212px;
+}
+
+#Game-nav-return {
+	text-align: center;
+	float: bottom;
+	height: 18px;
+	width: 212px;
+}
+
+.Game-nav-button {
+  background-color: #dbfaff; /* Green background */
+}
+
+.Game-nav-button:hover {
+	background-color: #6d82a5;
+}
+
+#Game-player {
+	position: absolute;
+	top: 200px;
+	left: 500px;
+	width: 220px;
+	height: 295px;
+	padding:4px;
+	box-sizing: border-box;
+}
+
+.btn-group button {
+  background-color: #dbfaff; /* Green background */
+  border: 1px solid #88a1cc; /* Green border */
+  padding: 2px 3px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  width: 20%;
+  text-align: center;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #6d82a5;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: relative;
+  display: inline-block;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }

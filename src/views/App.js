@@ -5,62 +5,69 @@
  */
 
 import React from "react";
-import gameScreen from "./gameScreen.js";
+import GameScreen from "./GameScreen.js";
 
 function App(props) {
 	return (
 		<div>
-			<Header {...props} />
+			<Header
+				curScreen={props.screenState.screen}
+				ScreenNames={props.Data.ScreenNames}
+				switchScreen={props.onSwitchScreen}
+				saveGame={props.onSaveGame}
+			/>
 			<Main {...props} />
 		</div>
 	);
 }
 
 function Header(props) {
-	if (props.screenState.screen === "Game") {
+	if (props.curScreen === "Game") {
 		return (
-			// TODO: If screen is game, change location to location name
-			// <button id="button-header">{props.gameState.locData.get(props.gameState.curLoc).name}</button> <t />
+			// TODO: Save game when press save.
 			<div id="App-header">
-				<button id="button-header" onClick={() => props.onSwitchScreen("Home")}>
-					Home
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.HOME)}>
+					{props.ScreenNames.HOME}
 				</button>{" "}
 				<t />
-				<button id="button-header">{props.gameState.LocData[props.gameState.curLoc].name}</button> <t />
-				<button id="button-header" onClick={() => props.onSwitchScreen("Help")}>
-					Help
+				<button className="button-header" onClick={() => props.saveGame()}>
+					Save
+				</button>{" "}
+				<t />
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.HELP)}>
+					{props.ScreenNames.HELP}
 				</button>
 			</div>
 		);
-	} else if (props.screenState.screen === "Help") {
+	} else if (props.curScreen === "Help") {
 		return (
 			<div id="App-header">
-				<button id="button-header" onClick={() => props.onSwitchScreen("Home")}>
+				<button className="button-header" onClick={() => props.switchScreen("Home")}>
 					Home
 				</button>{" "}
 				<t />
-				<button id="button-header" onClick={() => props.onSwitchScreen("Report")}>
-					Report
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.GAME)}>
+					Resume
 				</button>{" "}
 				<t />
-				<button id="button-header" onClick={() => props.onSwitchScreen("Game")}>
-					Resume
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.REPORT)}>
+					{props.ScreenNames.REPORT}
 				</button>
 			</div>
 		);
 	} else {
 		return (
 			<div id="App-header">
-				<button id="button-header" onClick={() => props.onSwitchScreen("Home")}>
-					Home
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.HOME)}>
+					{props.ScreenNames.HOME}
 				</button>{" "}
 				<t />
-				<button id="button-header" onClick={() => props.onSwitchScreen("About")}>
-					About
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.ABOUT)}>
+					{props.ScreenNames.ABOUT}
 				</button>{" "}
 				<t />
-				<button id="button-header" onClick={() => props.onSwitchScreen("Help")}>
-					Help
+				<button className="button-header" onClick={() => props.switchScreen(props.ScreenNames.REPORT)}>
+					{props.ScreenNames.REPORT}
 				</button>
 			</div>
 		);
@@ -70,60 +77,59 @@ function Header(props) {
 function Main(props) {
 	switch (props.screenState.screen) {
 		case "Home":
-			return homeScreen({ ...props });
+			return <div id="App-main">{homeScreen({ ...props })}</div>;
 		case "About":
-			return aboutScreen({ ...props });
+			return <div id="App-main">{aboutScreen({ ...props })}</div>;
 		case "Load":
-			return loadScreen({ ...props });
+			return <div id="App-main">{loadScreen({ ...props })}</div>;
 		case "Help":
-			return helpScreen({ ...props });
+			return <div id="App-main">{helpScreen({ ...props })}</div>;
 		case "Report":
-			return reportScreen({ ...props }, "");
+			return <div id="App-main">{reportScreen({ ...props }, "")}</div>;
 		case "Game":
-			return gameScreen({ ...props });
+			return <div id="App-main">{GameScreen({ ...props })}</div>;
 		default:
-			return reportScreen({ ...props }, "Invalid screen: " + props.screenState.screen + ". Please report!");
+			return (
+				<div id="App-main">
+					{reportScreen({ ...props }, "Invalid screen: " + props.screenState.screen + ". Please report!")}
+				</div>
+			);
 	}
 }
 
 function homeScreen(props) {
-	function getNewName() {
-		let x = document.getElementById("nameForm");
-		let newName = x.elements[0].value;
-		props.onChangeName(newName);
+	function newGame() {
+		props.onNewGame();
+		props.onSwitchScreen("Game");
 	}
 
 	return (
-		<div id="Main-home">
+		<section id="Main-home">
 			<h1 id="Home-title">Rifeel</h1>
 			<h2>The Life of a Fighter</h2>
-			<button id="button-text" onClick={() => props.onSwitchScreen("Game")}>
-				Begin Game
+			<button className="button-text" onClick={() => newGame()}>
+				New Game
 			</button>{" "}
 			<t />
-			<button id="button-text" onClick={() => props.onSwitchScreen("Game")}>
+			<button className="button-text" onClick={() => props.onSwitchScreen("Game")}>
 				Resume Game
 			</button>{" "}
 			<t />
-			<button id="button-text" onClick={() => props.onSwitchScreen("Load")}>
+			<button className="button-text" onClick={() => props.onSwitchScreen("Load")}>
 				Load Game
 			</button>
 			<br />
 			<br />
-			<form id="nameForm">
-				<input type="text" name="fname" />
-			</form>
-			<button id="button-text" onClick={() => getNewName()}>
-				Change Name
-			</button>
-			<p>Your name: {props.screenState.name}</p>
-		</div>
+			<button className="button-text">Create New Game</button> <t />
+			<button className="button-text">Edit Current Game</button> <t />
+			<button className="button-text">Load Other Game Version</button>
+		</section>
 	);
 }
 
 function aboutScreen(props) {
 	return (
-		<div id="Main-about">
+		<section id="Main-about">
 			A javascript game written with the help of Flux and React.
 			<br />
 			Currently, save states are stored in the browser local storage, so clearing it will erase game data.
@@ -133,27 +139,39 @@ function aboutScreen(props) {
 			Contact: zhongz132@gmail.com
 			<br />
 			Code location (SPOILS GAME): https://github.com/zhongz132/Rifeel-LOaF
-		</div>
+		</section>
 	);
 }
 
 function loadScreen(props) {
-	//TODO: THIS!
+	var gameVersions = Object.keys(localStorage);
+	let gameIds = {};
+	for (let key in gameVersions) {
+		if (gameVersions[key].substring(0, 12) === "Rifeel-Game-") {
+			let version = JSON.parse(localStorage.getItem(gameVersions[key]));
+			gameIds[gameVersions[key]] = version.gameName;
+		}
+	}
 	return (
-		<div id="Main-home">
+		<section id="Main-home">
 			<p>Load Screen</p>
-			<p>Feature working</p>
-		</div>
+			{Object.keys(gameIds).map(id => (
+				<section key={id}>
+					<button onClick={() => props.onLoadGame(id)}>{gameIds[id]}</button>
+					<br />
+				</section>
+			))}
+		</section>
 	);
 }
 
 function helpScreen(props) {
 	//TODO: THIS!
 	return (
-		<div id="Main-home">
+		<section id="Main-home">
 			<p>Help Screen</p>
 			<p>Feature working</p>
-		</div>
+		</section>
 	);
 }
 
@@ -162,18 +180,18 @@ function reportScreen(props, text) {
 	let otherText = 'Other: Email zhongz132@gmail.com with subject: "Rifeel-LOaF: {issue}"';
 	if (text.length > 0) {
 		return (
-			<div id="Main-home">
+			<section id="Main-home">
 				<p> Bug: {text} </p>
 				<p> {bugsText} </p>
 				<p> {otherText} </p>
-			</div>
+			</section>
 		);
 	} else {
 		return (
-			<div id="Main-home">
+			<section id="Main-home">
 				<p> {bugsText} </p>
 				<p> {otherText} </p>
-			</div>
+			</section>
 		);
 	}
 }

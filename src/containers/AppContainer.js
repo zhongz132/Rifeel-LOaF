@@ -1,46 +1,33 @@
 /**
  * AppContainer.js by zhongz132@gmail.com
- * 
+ *
  * Container for the whole application.
  */
 
-import {Container} from 'flux/utils';
-import App from './../views/App.js';
-import {ScreenActions, GameActions} from './../data/AppActions.js';
-import ScreenStateStore from './../data/ScreenStateStore.js';
-import GameStore from './../data/GameStore.js';
+import { Container } from "flux/utils";
+import App from "./../views/App.js";
+import { AppActions, GameActions } from "./../data/AppActions.js";
+import AppStateStore from "./../data/AppStateStore.js";
+import GameStateStore from "./../data/GameStateStore.js";
+import DataStore from "./../data/DataStore.js";
 
 function getStores() {
-	return [
-		ScreenStateStore,
-		GameStore,
-	];
+	return [AppStateStore, GameStateStore, DataStore];
 }
 
 function getState() {
 	return {
-		screenState: ScreenStateStore.getState(),
-		gameState: GameStore.getState(),
+		screenState: AppStateStore.getState(),
+		Data: DataStore.getState(),
+		gameState: GameStateStore.getState(),
 
-		onSwitchScreen: ScreenActions.switchScreen,
-		onChangeName: ScreenActions.changeName,
-		onChangeGameId: ScreenActions.ChangeGameId,
+		onSwitchScreen: AppActions.switchScreen,
+		onChangeGameId: AppActions.changeGameId,
 
-		onSwitchLocation: GameActions.switchLocation,
-		onDialLocAbout: GameActions.dialLocAbout,
-		onDialCharAbout: GameActions.dialCharAbout,
-		onDialCharTalk: GameActions.dialCharTalk,
-		onDialSkillInfo: GameActions.dialSkillInfo,
-		onSwitchPlayerView: GameActions.switchPlayerView,
-		onTrain: GameActions.train,
-		onLearnSkill: GameActions.learnSkill,
-		onStartQuest: GameActions.startQuest,
-		onInfoQuest: GameActions.infoQuest,
-		onCompleteQuest: GameActions.completeQuest,
-		onStartSB: GameActions.startSB,
-		onEndSB: GameActions.endSB,
-		onProcessSBMove: GameActions.processSBMove
-	}
+		onNewGame: GameActions.newGame,
+		onSaveGame: GameActions.saveGame,
+		onLoadGame: GameActions.loadGame
+	};
 }
 
-export default Container.createFunctional(App, getStores, getState)
+export default Container.createFunctional(App, getStores, getState);
